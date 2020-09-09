@@ -19,6 +19,8 @@ import Login from "../components/Login";
 
 import { Ionicons } from "@expo/vector-icons";
 import TimePicker from "../components/TimePicker";
+import UserModalMenu from "../components/UserModalMenu";
+import ConsentimientoKOMOBI from "../components/ConsentimientoKOMOBI";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -32,11 +34,11 @@ const styles = StyleSheet.create({
 });
 
 const AppContainer = () => {
-  const [timeSearching, setTimeSearching] = useState<number>(-1);
+  const [timeSearching, setTimeSearching] = useState<number>(5);
 
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="login">
+      <Navigator initialRouteName="scanner">
         <Screen
           name="config"
           component={SSIDConfig}
@@ -51,9 +53,11 @@ const AppContainer = () => {
             headerLeft: () => <View></View>,
             headerTitleAlign: "center",
             headerTintColor: "white",
-            headerStyle: { backgroundColor: "#297050" },
+            headerStyle: { backgroundColor: "#282828" },
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("config")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("userModalMenu")}
+              >
                 <Ionicons
                   name="ios-settings"
                   size={32}
@@ -77,7 +81,7 @@ const AppContainer = () => {
             title: "Login K9",
             headerTitleAlign: "center",
             headerTintColor: "white",
-            headerStyle: { backgroundColor: "#297050" },
+            headerStyle: { backgroundColor: "#282828" },
             // headerRight: () => (
             //   <Button
             //     onPress={() => navigation.navigate("config")}
@@ -101,13 +105,15 @@ const AppContainer = () => {
             navigation: any;
             route: any;
           }) => ({
-            title: "Komobi K9",
+            title: "KOMOBI K9",
             headerTitleAlign: "center",
             headerTintColor: "white",
-            headerStyle: { backgroundColor: "#297050" },
+            headerStyle: { backgroundColor: "#282828" },
             headerLeft: () => <View></View>,
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("config")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("userModalMenu")}
+              >
                 <Ionicons
                   name="ios-settings"
                   size={32}
@@ -132,13 +138,15 @@ const AppContainer = () => {
             navigation: any;
             route: any;
           }) => ({
-            title: "Komobi K9",
+            title: "KOMOBI K9",
             headerTitleAlign: "center",
             headerTintColor: "white",
-            headerStyle: { backgroundColor: "#297050" },
+            headerStyle: { backgroundColor: "#282828" },
             headerLeft: () => <View></View>,
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("config")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("userModalMenu")}
+              >
                 <Ionicons
                   name="ios-settings"
                   size={32}
@@ -153,6 +161,46 @@ const AppContainer = () => {
             return (
               <TimePicker {...props} setTimeSearching={setTimeSearching} />
             );
+          }}
+        </Screen>
+
+        <Screen
+          name="userModalMenu"
+          options={({
+            navigation,
+            route,
+          }: {
+            navigation: any;
+            route: any;
+          }) => ({
+            title: "",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#282828" },
+            animationEnabled: true
+          })}
+        >
+          {(props) => {
+            return <UserModalMenu {...props}/>;
+          }}
+        </Screen>
+
+        <Screen
+          name="consentimientoKOMOBI"
+          options={({
+            navigation,
+            route,
+          }: {
+            navigation: any;
+            route: any;
+          }) => ({
+            title: "Permisos KOMOBI K9",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#282828" },
+            animationEnabled: true,
+          })}
+        >
+          {(props) => {
+            return <ConsentimientoKOMOBI />;
           }}
         </Screen>
       </Navigator>

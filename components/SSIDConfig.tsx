@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import {
   StyleSheet,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnBottomStyle: {
-    backgroundColor: "#297050",
+    backgroundColor: "#3fb07d",
     width: "100vw",
     /* font-size: 41px; */
     padding: 8,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   textCargandoMotorcycles: {
-    color: "#297050",
+    color: "#282828",
     fontFamily:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
     fontSize: 20,
@@ -84,10 +84,13 @@ const SSIDConfig = ({ navigation }: { navigation: any }) => {
   const [motoSelected, setMotoSelected] = useState<string | undefined>();
   const [motorcyclesList, setMotorcyclesList] = useState<string[]>([]);
   const [pikerState, setPickerState] = useState(-1);
-  const [isSelected, setSelection] = useState(false);
 
   //Context
   const [context, setContext] = useContext(K9Context);
+
+  useEffect(() => {
+    !context.user && navigation.navigate("login");
+  }, [context]);
 
   const loadMotorcyclesList = (userId: string) => {
     setPickerState(0);
@@ -151,9 +154,7 @@ const SSIDConfig = ({ navigation }: { navigation: any }) => {
         <View style={styles.marginPicker}>
           {pikerState === 0 && (
             <Text style={styles.textCargandoMotorcycles}>
-              {" "}
-              Cargando Motos del individuo
-              <ImpulseSpinner />
+              Cargando Motos del individuo <ImpulseSpinner />
             </Text>
           )}
 
@@ -166,7 +167,7 @@ const SSIDConfig = ({ navigation }: { navigation: any }) => {
                   // width: "80%",
                   borderWidth: 0,
                   borderBottomWidth: 1,
-                  borderBottomColor: "#297050",
+                  borderBottomColor: "#3fb07d",
                   marginBottom: 30,
                   fontFamily:
                     '18px, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
@@ -193,28 +194,18 @@ const SSIDConfig = ({ navigation }: { navigation: any }) => {
               </Picker>
             </>
           )}
-
-          <Text style={{ color: "#297050", fontSize: 18 }}>
-            <CheckBox
-              value={isSelected}
-              onValueChange={setSelection}
-              // style={styles.checkbox}
-            />{" "}
-            Permisos y avisos legales de K9
-          </Text>
         </View>
 
         <View style={styles.btnBottom}>
           <TouchableOpacity
             onPress={() => handleOnLogin()}
             style={
-              deviceId !== "" && motoSelected !== undefined && isSelected
+              deviceId !== "" && motoSelected !== undefined
                 ? styles.btnBottomStyle
                 : styles.btnBottomStyleDisabled
             }
-            // disabled={motoSelected !== undefined && !isSelected}
           >
-            <Text style={styles.btnTextStyle}> Comenzar Escaner</Text>
+            <Text style={styles.btnTextStyle}>Siguiente</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

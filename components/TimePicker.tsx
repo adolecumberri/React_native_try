@@ -4,6 +4,7 @@ import React, {
   Dispatch,
   SetStateAction,
   FC,
+  useContext,
 } from "react";
 
 import {
@@ -14,14 +15,14 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-//  import {ReactComponent as KShield} from "./icons/komobiShield.svg";
+//  import {ReactComponent as KShield} from "./icons/KOMOBIShield.svg";
 
 import { ButtonGroup } from "react-native-elements";
 import { Picker } from "@react-native-community/picker";
 import { MagicSpinner, ImpulseSpinner } from "react-spinners-kit";
 import KShield from "./icons/KShield";
-import WifiBars from "./WifiBars";
 import { RouteProp } from "@react-navigation/native";
+import { K9Context } from "../config/User/user.context";
 
 // import { PermissionsAndroid } from "react-native";
 // import * as WifiManagerType from "react-native-wifi-reborn";
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnStartSearchStyle: {
-    backgroundColor: "#297050",
+    backgroundColor: "#3fb07d",
     width: "100vw",
     padding: 8,
     height: 50,
@@ -79,6 +80,12 @@ interface IProps {
 
 const TimePicker: FC<IProps> = ({ navigation, setTimeSearching }) => {
   const [timeSelected, setTimeSelected] = useState(-1);
+
+  const [context, _] = useContext(K9Context);
+
+  useEffect(() => {
+    !context.user && navigation.navigate("login");
+  }, [context]);
 
   return (
     <>

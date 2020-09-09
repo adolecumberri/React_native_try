@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   Button,
+  Text,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import FormInput from "../components/FormInput";
@@ -119,6 +120,29 @@ const Login: FC<IProps> = ({ navigation }) => {
           {values.password === "" && (
             <ErrorMessage errorValue={errors.password} />
           )}
+          <TouchableOpacity
+            style={{ margin: 25, alignItems: "center", display: "flex" }}
+            onPress={()=> navigation.navigate("consentimientoKOMOBI")}
+          >
+            <Text
+              style={{
+                color: "#297050",
+                fontSize: 14,
+                textDecorationLine: "underline",
+              }}
+            >
+              Accediendo consientes los permisos de{" "}
+            </Text>
+            <Text
+              style={{
+                color: "#297050",
+                fontSize: 16,
+                textDecorationLine: "underline",
+              }}
+            >
+              KOMOBI K9
+            </Text>
+          </TouchableOpacity>
         </>
 
         {errors.login !== "" && <ErrorMessage errorValue={errors.login} />}
@@ -127,7 +151,7 @@ const Login: FC<IProps> = ({ navigation }) => {
             <Button
               onPress={handleOnLogin}
               title={"LOGIN"}
-              color={"#297050"}
+              color={"#3fb07d"}
               disabled={values.email === "" || values.password === ""}
             />
           </>
